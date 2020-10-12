@@ -1,0 +1,8 @@
+server:
+  port: 8080
+
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: cn.laochou.diagnose.pojo
+  configuration:
+    map-underscore-to-camel-case: true
