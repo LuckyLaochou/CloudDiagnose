@@ -18,4 +18,9 @@ public class UserServiceImpl implements UserService {
         if(row > 0) return true;
         return false;
     }
+
+    @Override
+    public User selectUserByPhoneAndPassword(String phone, String password) {
+        return userMapper.selectUserByPhoneAndPassword(phone, password);
+    }
 }

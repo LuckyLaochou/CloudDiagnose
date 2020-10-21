@@ -16,6 +16,9 @@ public class User {
     private String idCard;
     // 用户邮箱
     private String mail;
+    // 用户密码
+    private String password;
+    private String phone;
     // 用户性别
     private int sex;
     // 用户角色

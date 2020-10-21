@@ -6,4 +6,6 @@ public interface UserService {
 
     boolean insertUser(User user);
 
+    User selectUserByPhoneAndPassword(String phone, String password);
+
 }

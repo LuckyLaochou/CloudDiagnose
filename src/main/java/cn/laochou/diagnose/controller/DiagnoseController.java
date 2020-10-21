@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/diagnose")
 public class DiagnoseController {
 
+    @RequestMapping("/login")
+    public String toLogin() {
+        return "login";
+    }
+
     @RequestMapping("/index")
     public String toIndex() {
         return "index";

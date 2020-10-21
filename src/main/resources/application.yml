@@ -1,8 +1,28 @@
 server:
   port: 8080
 
+
 mybatis:
   mapper-locations: classpath:mappers/*.xml
   type-aliases-package: cn.laochou.diagnose.pojo
   configuration:
     map-underscore-to-camel-case: true
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/clouddiagnose?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: laochou
+    type: com.alibaba.druid.pool.DruidDataSource
+
+ip: 192.168.75.177
+
+fdfs:
+  # socket 超时时长
+  connect-timeout: 600
+  # 读取时间
+  so-timeout: 1500
+  trackerList: #TrackerList参数,支持多个，我这里只有一个，如果有多个在下方加- x.x.x.x:port
+    - ${ip}:22122
+  web-server-url: http://${ip}:7003/ #FDFS中的nginx的ip和port

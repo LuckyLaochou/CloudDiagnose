@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>云诊断登陆</title>
+	<!-- Meta tags -->
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<!-- //Meta tags -->
+	<link rel="stylesheet" th:href="@{/css/login/style.css}" type="text/css" media="all"><!-- Style-CSS -->
+
+	<link th:href="@{/css/login/font-awesome.css}" rel="stylesheet"><!-- font-awesome-icons -->
+
+	<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
+	<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-theme.css}">
+</head>
+
+<body>
+	<section class="w3l-form-36">
+		<div class="form-36-mian section-gap">
+			<div class="wrapper">
+				<div class="form-inner-cont">
+					<h3>云诊断平台登录</h3>
+					<form class="signin-form">
+						<div class="form-input">
+							<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+							<input type="text" id="phone" name="phone" placeholder="手机号" required=""/>
+						</div>
+						<div class="form-input">
+							<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+							<input type="password" id="password" name="password" placeholder="密码" required=""/>
+						</div>
+						<div class="login-remember d-grid">
+							<button class="btn theme-button" id="loginButton" type="button">登陆</button>
+						</div>
+						<div class="new-signup">
+							<a href="" class="signuplink">忘记密码？</a>
+						</div>
+					</form>
+					<p class="signup">Don’t have an account? <a href="注册页面" class="signuplink">注册</a></p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+</body>
+<script th:src="@{/jquery/jquery-3.5.1.min.js}"></script>
+
+<script>
+
+		$("#loginButton").click(function () {
+			$.ajax({
+				url: '/user/login',
+				data: JSON.stringify(
+						{'phone': $("#phone").val(), 'password': $("#password").val()}
+				),
+				type: 'post',
+				contentType: 'application/json',
+				success: function (result) {
+					var message = result.message;
+					if (message === "登陆成功") {
+						alert(message);
+						window.location.href = "/diagnose/index";
+						return false;
+					} else {
+						alert(message);
+						window.location.href = "/diagnose/login";
+						return false;
+					}
+
+				}
+			});
+			return false;
+		});
+</script>
+
+</html>

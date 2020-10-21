@@ -39,4 +39,9 @@ public class ReturnBody<T> {
         return new ReturnBody<>(500, message, result);
     }
 
+
+    public static ReturnBody getParamErrorReturnBody(String message) {
+        return new ReturnBody(300, message);
+    }
+
 }
