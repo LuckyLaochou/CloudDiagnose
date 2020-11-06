@@ -8,6 +8,7 @@ import cn.laochou.diagnose.service.UserService;
 import cn.laochou.diagnose.util.CheckUtils;
 import cn.laochou.diagnose.util.DateUtils;
 import cn.laochou.diagnose.util.FdfsUtils;
+import cn.laochou.diagnose.util.FileUtils;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 
 /**
  * 这个Controller主要服务于用户
@@ -30,9 +32,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private FdfsUtils fdfsUtils;
 
     @Autowired
     private RequestService requestService;
@@ -108,13 +107,13 @@ public class UserController {
         if(pictures == null) {
             diagnoseRequest.setPritures("");
         }else {
-            String picturesPath = fdfsUtils.uploadFile(pictures);
+            String picturesPath = FileUtils.uploadFile(pictures);
             diagnoseRequest.setPritures(picturesPath);
         }
         if(videos == null) {
             diagnoseRequest.setVideo("");
         }else {
-            String videosPath = fdfsUtils.uploadFile(videos);
+            String videosPath = FileUtils.uploadFile(videos);
             diagnoseRequest.setVideo(videosPath);
         }
         diagnoseRequest.setContent(content);
