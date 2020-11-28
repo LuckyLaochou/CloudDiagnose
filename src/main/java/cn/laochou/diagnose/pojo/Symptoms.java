@@ -5,7 +5,6 @@ import lombok.Data;
 /**
  * 症状
  */
-@Data
 public class Symptoms {
 
     private int id;
@@ -14,4 +13,28 @@ public class Symptoms {
 
     private String symptoms;
 
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSymptoms() {
+        return symptoms;
+    }
+
+    public void setSymptoms(String symptoms) {
+        this.symptoms = symptoms;
+    }
 }

@@ -15,30 +15,37 @@ import java.util.UUID;
 public class FileUtils {
 
 
+    private static final String prePath = System.getProperty("user.dir") + "/src/main/resources/static/upload/";
+
+
+    /**
+     * 目前正常
+     * @param file
+     * @return
+     */
     public static String uploadFile(MultipartFile file) {
         if(file.isEmpty()) {
             return "";
         }
         // 获取原文件名
-        String uploadPath = FileUtils.class.getClassLoader().getResource("").getPath();
-        System.out.println(uploadPath);
         String originFile = file.getOriginalFilename();
         // 这个我们会通过随机进行生成
         String uid = UUID.randomUUID().toString();
         assert originFile != null;
         String suffix = originFile.substring(originFile.lastIndexOf('.') + 1);
-        String path = uploadPath + uid + "." + suffix;
+        String path = prePath + uid + "." + suffix;
+        String returnPath = "/upload/" + uid + "." + suffix;
         File newFile = new File(path);
-        if(!newFile.exists()) {
+        if(!newFile.getParentFile().exists()) {
             log.info("创建目录ing");
-            newFile.mkdirs();
+            newFile.getParentFile().mkdirs();
         }
         try {
             file.transferTo(newFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return path;
+        return returnPath;
     }
 
 }

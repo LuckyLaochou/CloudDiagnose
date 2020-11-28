@@ -45,10 +45,12 @@ public class DiagnoseController {
         return "blog";
     }
 
-    @RequestMapping("/contact")
+
+    @RequestMapping("/publish")
     public String toContact() {
-        return "contact";
+        return "publish";
     }
+
 
     @RequestMapping("/blog/single")
     public String toBlogSingle() {

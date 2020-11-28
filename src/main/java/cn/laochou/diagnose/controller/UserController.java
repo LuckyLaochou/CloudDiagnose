@@ -1,8 +1,10 @@
 package cn.laochou.diagnose.controller;
 
 import cn.laochou.diagnose.common.ReturnBody;
+import cn.laochou.diagnose.pojo.Article;
 import cn.laochou.diagnose.pojo.Request;
 import cn.laochou.diagnose.pojo.User;
+import cn.laochou.diagnose.service.ArticleService;
 import cn.laochou.diagnose.service.RequestService;
 import cn.laochou.diagnose.service.UserService;
 import cn.laochou.diagnose.util.CheckUtils;
@@ -10,6 +12,7 @@ import cn.laochou.diagnose.util.DateUtils;
 import cn.laochou.diagnose.util.FdfsUtils;
 import cn.laochou.diagnose.util.FileUtils;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +39,9 @@ public class UserController {
     @Autowired
     private RequestService requestService;
 
+    @Autowired
+    private ArticleService articleService;
+
 
 
     /**
@@ -45,7 +51,7 @@ public class UserController {
      */
     @RequestMapping("/register")
     @ResponseBody
-    public ReturnBody userRegister(@RequestBody User user) {
+    public ReturnBody<Object> userRegister(@RequestBody User user) {
         // 对于User里面的参数进行校验
         if(!CheckUtils.validIdCard(user.getIdCard())) {
             return ReturnBody.getParamErrorReturnBody("参数错误");
@@ -66,7 +72,7 @@ public class UserController {
      */
     @RequestMapping("/login")
     @ResponseBody
-    public ReturnBody userLogin(HttpServletRequest request, @RequestBody User user) {
+    public ReturnBody<Object> userLogin(HttpServletRequest request, @RequestBody User user) {
         if(request.getSession().getAttribute("user") != null) {
             return ReturnBody.getSuccessReturnBody("您已经登录过了");
         }
@@ -92,7 +98,7 @@ public class UserController {
      */
     @RequestMapping("/request")
     @ResponseBody
-    public ReturnBody userRequest(HttpServletRequest request, @RequestParam("pictures")MultipartFile pictures, @RequestParam("videos") MultipartFile videos,
+    public ReturnBody<Object> userRequest(HttpServletRequest request, @RequestParam(value = "pictures", required = false)MultipartFile pictures, @RequestParam(value = "videos", required = false) MultipartFile videos,
                                   @RequestParam("content") String content, @RequestParam("department") String department) {
         Request diagnoseRequest = new Request();
         User user = (User) request.getSession().getAttribute("user");
@@ -105,10 +111,10 @@ public class UserController {
         }
         // 开始判断
         if(pictures == null) {
-            diagnoseRequest.setPritures("");
+            diagnoseRequest.setPictures("");
         }else {
             String picturesPath = FileUtils.uploadFile(pictures);
-            diagnoseRequest.setPritures(picturesPath);
+            diagnoseRequest.setPictures(picturesPath);
         }
         if(videos == null) {
             diagnoseRequest.setVideo("");
@@ -125,7 +131,6 @@ public class UserController {
         if(res) return ReturnBody.getSuccessReturnBody("申请成功");
         return ReturnBody.getSuccessReturnBody("申请失败");
     }
-
 
 
 }

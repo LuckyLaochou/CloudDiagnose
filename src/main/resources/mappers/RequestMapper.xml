@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.laochou.diagnose.mapper.RequestMapper">
-    <insert id="insertRequest" parameterType="request">
-        insert into request(user_id, department, pictures, video, create_time, update_time) values (#{request.userId}, #{request.department}, #{request.pictures}, #{request.video}, #{request.create_time}, #{request.update_time});
+    <insert id="insertRequest" parameterType="cn.laochou.diagnose.pojo.Request">
+        insert into request (user_id, department, content, pictures, video, create_time, update_time) values(#{userId}, #{department}, #{content}, #{pictures}, #{video}, #{createTime}, #{updateTime});
     </insert>
 </mapper>

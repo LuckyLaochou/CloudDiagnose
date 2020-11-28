@@ -15,14 +15,9 @@ spring:
     username: root
     password: laochou
     type: com.alibaba.druid.pool.DruidDataSource
+  servlet:
+    multipart:
+      location: F:/JAVA/CloudDiagnose/src/main/resources/static
 
-ip: 192.168.75.177
-
-fdfs:
-  # socket 超时时长
-  connect-timeout: 600
-  # 读取时间
-  so-timeout: 1500
-  trackerList: #TrackerList参数,支持多个，我这里只有一个，如果有多个在下方加- x.x.x.x:port
-    - ${ip}:22122
-  web-server-url: http://${ip}:7003/ #FDFS中的nginx的ip和port
+  resources:
+    static-locations: classpath:static/, file:${spring.servlet.multipart.location}

@@ -22,16 +22,16 @@ public class ReturnBody<T> {
         this(status, message, null);
     }
 
-    public static ReturnBody getSuccessReturnBody(String message) {
-        return new ReturnBody(200, message);
+    public static ReturnBody<Object> getSuccessReturnBody(String message) {
+        return new ReturnBody<>(200, message);
     }
 
     public static <T> ReturnBody<T> getSuccessReturnBody(String message, T result) {
         return new ReturnBody<>(200, message, result);
     }
 
-    public static ReturnBody getErrorReturnBody(String message) {
-        return new ReturnBody(500, message);
+    public static ReturnBody<Object> getErrorReturnBody(String message) {
+        return new ReturnBody<>(500, message);
     }
 
 
@@ -40,8 +40,8 @@ public class ReturnBody<T> {
     }
 
 
-    public static ReturnBody getParamErrorReturnBody(String message) {
-        return new ReturnBody(300, message);
+    public static ReturnBody<Object> getParamErrorReturnBody(String message) {
+        return new ReturnBody<>(300, message);
     }
 
 }
