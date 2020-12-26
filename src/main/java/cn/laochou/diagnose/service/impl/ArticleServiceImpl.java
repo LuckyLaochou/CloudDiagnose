@@ -6,6 +6,8 @@ import cn.laochou.diagnose.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -31,5 +33,10 @@ public class ArticleServiceImpl implements ArticleService {
             return null;
         }
         return article;
+    }
+
+    @Override
+    public List<Article> getAllArticle() {
+        return articleMapper.getAllArticle();
     }
 }

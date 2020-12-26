@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.laochou.diagnose.mapper.UserMapper">
-    <insert id="insertUser" parameterType="user" useGeneratedKeys="true" keyProperty="id">
-        insert into user(name, id_card, mail, sex, create_time, update_time) values(user.name, user.idCard, user.protrait, user.mail, user.sex, user.createTime, user.updateTime);
+    <insert id="insertUser" parameterType="cn.laochou.diagnose.pojo.User" useGeneratedKeys="true" keyProperty="id">
+        insert into user(name, id_card, mail, sex, create_time, update_time) values(#{user.name}, #{user.idCard}, #{user.protrait}, #{user.mail}, #{user.sex}, #{user.createTime}, #{user.updateTime});
     </insert>
 
     <select id="selectUserByPhoneAndPassword" parameterType="string" resultType="user">
         select * from user where phone = #{phone} and password = #{password}
+    </select>
+
+    <select id="selectUserById" parameterType="int" resultType="user">
+        select * from user where id = #{id}
     </select>
 
 </mapper>

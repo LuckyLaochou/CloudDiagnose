@@ -2,13 +2,18 @@ package cn.laochou.diagnose.controller;
 
 import cn.laochou.diagnose.common.ReturnBody;
 import cn.laochou.diagnose.pojo.Article;
+import cn.laochou.diagnose.pojo.Comment;
 import cn.laochou.diagnose.pojo.User;
 import cn.laochou.diagnose.service.ArticleService;
+import cn.laochou.diagnose.service.CommentService;
+import cn.laochou.diagnose.service.UserService;
 import cn.laochou.diagnose.util.DateUtils;
 import cn.laochou.diagnose.util.FileUtils;
+import cn.laochou.diagnose.vo.CommentVO;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 负责Article的一系列请求
@@ -30,6 +37,12 @@ public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
+
+    @Autowired
+    private CommentService commentService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/publish")
     @ResponseBody
@@ -82,9 +95,23 @@ public class ArticleController {
             modelAndView.setViewName("blog");
             return modelAndView;
         }
+        List<Comment> comments = commentService.getCommentsByArticleId(id);
+        List<CommentVO> commentVOS = new ArrayList<>();
+        for(Comment comment : comments) {
+            CommentVO commentVO = new CommentVO();
+            int userId = comment.getUserId();
+            User user = userService.selectUserById(userId);
+            BeanUtils.copyProperties(comment, commentVO);
+            commentVO.setUserName(user.getName());
+            log.info(JSON.toJSONString(commentVO));
+        }
         modelAndView.setViewName("singleblog");
+        modelAndView.addObject("comments", commentVOS);
         modelAndView.addObject("article", article);
         return modelAndView;
     }
+
+
+
 
 }

@@ -8,4 +8,6 @@ public interface UserService {
 
     User selectUserByPhoneAndPassword(String phone, String password);
 
+    User selectUserById(int id);
+
 }

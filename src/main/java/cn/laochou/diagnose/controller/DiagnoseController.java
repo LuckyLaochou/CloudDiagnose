@@ -1,8 +1,16 @@
 package cn.laochou.diagnose.controller;
 
 
+import cn.laochou.diagnose.pojo.Article;
+import cn.laochou.diagnose.service.ArticleService;
+import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 
 /**
@@ -10,7 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/diagnose")
+@Slf4j
 public class DiagnoseController {
+
+    @Autowired
+    private ArticleService articleService;
 
     @RequestMapping("/login")
     public String toLogin() {
@@ -41,8 +53,13 @@ public class DiagnoseController {
 
 
     @RequestMapping("/blog")
-    public String toBlog() {
-        return "blog";
+    public ModelAndView toBlog() {
+        ModelAndView modelAndView = new ModelAndView();
+        List<Article> articles = articleService.getAllArticle();
+        log.info(JSON.toJSONString(articles));
+        modelAndView.setViewName("blog");
+        modelAndView.addObject("articles", articles);
+        return modelAndView;
     }
 
 

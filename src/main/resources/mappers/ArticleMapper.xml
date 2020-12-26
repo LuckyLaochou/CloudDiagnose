@@ -8,4 +8,8 @@
     <select id="getArticleById" resultType="cn.laochou.diagnose.pojo.Article" parameterType="int">
         select * from article where id = #{id};
     </select>
+
+    <select id="getAllArticle" resultType="cn.laochou.diagnose.pojo.Article">
+        select * from article;
+    </select>
 </mapper>
