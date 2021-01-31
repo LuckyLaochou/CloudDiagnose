@@ -104,6 +104,7 @@ public class ArticleController {
             BeanUtils.copyProperties(comment, commentVO);
             commentVO.setUserName(user.getName());
             log.info(JSON.toJSONString(commentVO));
+            commentVOS.add(commentVO);
         }
         modelAndView.setViewName("singleblog");
         modelAndView.addObject("comments", commentVOS);

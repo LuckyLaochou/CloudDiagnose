@@ -3,7 +3,7 @@
 <mapper namespace="cn.laochou.diagnose.mapper.CommentMapper">
 
     <select id="getCommentsByArticleId" resultType="cn.laochou.diagnose.pojo.Comment" parameterType="int">
-        select * from comment where article_id = #{articleId} order by create_time;
+        select * from comment where article_id = #{articleId} order by create_time desc;
     </select>
 
     <insert id="insertComment" parameterType="cn.laochou.diagnose.pojo.Comment">

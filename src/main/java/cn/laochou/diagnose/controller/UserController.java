@@ -1,7 +1,6 @@
 package cn.laochou.diagnose.controller;
 
 import cn.laochou.diagnose.common.ReturnBody;
-import cn.laochou.diagnose.pojo.Article;
 import cn.laochou.diagnose.pojo.Request;
 import cn.laochou.diagnose.pojo.User;
 import cn.laochou.diagnose.service.ArticleService;
@@ -9,10 +8,8 @@ import cn.laochou.diagnose.service.RequestService;
 import cn.laochou.diagnose.service.UserService;
 import cn.laochou.diagnose.util.CheckUtils;
 import cn.laochou.diagnose.util.DateUtils;
-import cn.laochou.diagnose.util.FdfsUtils;
 import cn.laochou.diagnose.util.FileUtils;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
