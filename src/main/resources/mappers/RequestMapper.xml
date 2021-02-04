@@ -4,4 +4,12 @@
     <insert id="insertRequest" parameterType="cn.laochou.diagnose.pojo.Request">
         insert into request (user_id, department, content, pictures, video, create_time, update_time) values(#{userId}, #{department}, #{content}, #{pictures}, #{video}, #{createTime}, #{updateTime});
     </insert>
+
+    <select id="getRequestByDepartment" parameterType="string" resultType="cn.laochou.diagnose.vo.RequestVO">
+        select r.id, u.name, r.content, r.pictures  from request r LEFT JOIN `user` u on r.department = #{department} and u.id = r.user_id and r.is_diagnose = 0;
+    </select>
+
+    <select id="getRequestDetailById" parameterType="int" resultType="cn.laochou.diagnose.vo.RequestDetailVO">
+        select r.*, u.name from request r LEFT JOIN `user` u on r.department = #{department} and u.id = r.user_id;
+    </select>
 </mapper>

@@ -1,6 +1,5 @@
 package cn.laochou.diagnose.pojo;
 
-import lombok.Data;
 
 /**
  * 症状

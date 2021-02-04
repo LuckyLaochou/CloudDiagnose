@@ -40,9 +40,15 @@ public class DiagnoseController {
         return "about";
     }
 
-    @RequestMapping("/service")
+    @RequestMapping("/hall")
     public String toService() {
-        return "service";
+        return "hall";
+    }
+
+
+    @RequestMapping("/detail")
+    public String toDetail() {
+        return "detail";
     }
 
 
