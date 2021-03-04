@@ -96,42 +96,21 @@
                     <li>
                         <a href="/diagnose/about">关于我们</a>
                     </li>
-                    <li>
-                        <a href="/diagnose/service">服务</a>
+                    <li th:if="${session.user.role eq 2}">
+                        <a href="/request/hall">诊断大厅</a>
                     </li>
-                    <li>
+                    <li th:if="${session.user.role eq 2}">
+                        <a href="/diagnose/publish">发布文章</a>
+                    </li>
+                    <li th:if="${session.user.role eq 1}">
                         <a href="/diagnose/appointment">申请</a>
                     </li>
                     <li>
                         <a href="/diagnose/blog">论坛</a>
                     </li>
                     <li>
-                        <a href="/diagnose/publish">发布文章</a>
+                        <a href="/user/my">个人中心</a>
                     </li>
-                    <!-- <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown
-                                <span class="caret"></span>
-                          </a>
-                          <ul class="dropdown-menu">
-                                <li>
-                                      <a href="#">Action</a>
-                                </li>
-                                <li>
-                                      <a href="#">Another action</a>
-                                </li>
-                                <li>
-                                      <a href="#">Something else here</a>
-                                </li>
-                                <li role="separator" class="divider"></li>
-                                <li>
-                                      <a href="#">Separated link</a>
-                                </li>
-                                <li role="separator" class="divider"></li>
-                                <li>
-                                      <a href="#">One more separated link</a>
-                                </li>
-                          </ul>
-                    </li> -->
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -161,17 +140,17 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="content-block">
-                        <h2>Clinical And <br>Medical Education</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas eius optio repellendus quasi nisi vitae laboriosam explicabo eligendi sapiente in.
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, dolorum esse tempora id architecto laboriosam.
+                        <h2>患者<br><span th:text="${detail.name}"></span></h2>
+                        <p><span>病情描述</span><br>
+                            <span th:text="${detail.content}"></span>
                         </p>
+                        <h4>预诊断-诊断结果</h4>
                         <ul>
-                            <li><i class="fa fa-caret-right"></i>vitae laboriosam explicabo eligendi sapiente</li>
-                            <li><i class="fa fa-caret-right"></i>consectetur adipisicing elit. Beatae</li>
-                            <li><i class="fa fa-caret-right"></i>dolorum esse tempora id architecto</li>
-                            <li><i class="fa fa-caret-right"></i>optio repellendus quasi nisi vitae</li>
+                            <li><i class="fa fa-caret-right"></i>暂无</li>
+                            <li><i class="fa fa-caret-right"></i>暂无</li>
+                            <li><i class="fa fa-caret-right"></i>暂无</li>
+                            <li><i class="fa fa-caret-right"></i>暂无</li>
                         </ul>
-                        <a href="#" class="btn btn-style-one">Appoint</a>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -182,18 +161,13 @@
                                     <div class="panel-heading" role="tab" id="headingOne">
                                         <h4 class="panel-title">
                                             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                Why Should I choose Medical Health
+                                                患者病情图片
                                             </a>
                                         </h4>
                                     </div>
                                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                         <div class="panel-body">
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                                            non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
-                                            moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                                            Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                            Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic
-                                            synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                            <img th:src="${detail.pictures}">
                                         </div>
                                     </div>
                                 </div>
@@ -202,41 +176,38 @@
                                         <h4 class="panel-title">
                                             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
                                                aria-controls="collapseTwo">
-                                                What are the Centre’s visiting hours?
+                                                患者病情视频
                                             </a>
                                         </h4>
                                     </div>
                                     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                         <div class="panel-body">
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                                            non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
-                                            moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                                            Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                            Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic
-                                            synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                            <video id="media" style="height: 500px; width: 500px" controls>
+                                                <source th:src="${detail.video}">
+                                            </video>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading" role="tab" id="headingThree">
-                                        <h4 class="panel-title">
-                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false"
-                                               aria-controls="collapseThree">
-                                                How many visitors are allowed?
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                                        <div class="panel-body">
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                                            non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
-                                            moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                                            Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                            Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic
-                                            synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                        </div>
-                                    </div>
-                                </div>
+<!--                                <div class="panel panel-default">-->
+<!--                                    <div class="panel-heading" role="tab" id="headingThree">-->
+<!--                                        <h4 class="panel-title">-->
+<!--                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false"-->
+<!--                                               aria-controls="collapseThree">-->
+<!--                                                How many visitors are allowed?-->
+<!--                                            </a>-->
+<!--                                        </h4>-->
+<!--                                    </div>-->
+<!--                                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">-->
+<!--                                        <div class="panel-body">-->
+<!--                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,-->
+<!--                                            non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf-->
+<!--                                            moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.-->
+<!--                                            Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.-->
+<!--                                            Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic-->
+<!--                                            synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -246,28 +217,23 @@
                         <div class="col-md-6">
                             <img class="img-responsive" src="images/services/service-one.jpg" alt="service-image">
                         </div>
-                        <div class="col-md-6">
-                            <div class="contents">
-                                <div class="section-title">
-                                    <h3>pulmonary</h3>
+                        <form>
+                            <div class="col-md-6">
+                                <div class="contents">
+                                    <div class="section-title">
+                                        <h3>诊断</h3>
+                                    </div>
+                                    <div class="text">
+                                        <input type="hidden" id="requestId" name="requestId" th:value="${detail.id}">
+                                        <span>诊断结果</span><input type="text" id="diagnoseResult" name="diagnoseResult">
+                                        <label>
+                                            <textarea style="width: 500px; height: 200px" id="advices" name="advices"></textarea>
+                                        </label>
+                                    </div>
+                                    <button href="#" class="btn btn-style-one" id="diagnoseButton">确认</button>
                                 </div>
-                                <div class="text">
-                                    <p>The implant fixture is first placed, so that it ilikely to osseointegrate, then a dental prosthetic is added.
-                                        then a dental prosthetic is added.then a dental pros- thetic is added.</p>
-                                    <p>The implant fixture is first placed, so that it ilikely to osseointegrate, then a dental prosthetic is added.
-                                        then a dental prosthetic is added.then a dental pros- thetic is added.</p>
-                                </div>
-                                <ul class="content-list">
-                                    <li>
-                                        <i class="fa fa-check-circle-o"></i>Whitening is among the most popular dental</li>
-                                    <li>
-                                        <i class="fa fa-check-circle-o"></i>Teeth cleaning is part of oral hygiene and involves</li>
-                                    <li>
-                                        <i class="fa fa-check-circle-o"></i>Teeth cleaning is part of oral hygiene and involves</li>
-                                </ul>
-                                <a href="#" class="btn btn-style-one">Read more</a>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -423,6 +389,29 @@
 <script th:src="@{/plugins/jquery-ui.js}"></script>
 <script th:src="@{/plugins/timePicker.js}"></script>
 <script th:src="@{/js/script.js}"></script>
+
+<script>
+    $("#diagnoseButton").click(function () {
+        $.ajax({
+            url : "/user/diagnose",
+            data : JSON.stringify({'requestId': $("#requestId").val(),'diagnoseResult': $("#diagnoseResult").val(), 'advices': $("#advices").val()}),
+            method : "POST",
+            contentType : "application/json",
+            success: function (result) {
+                var message = result.message;
+                if (message === "success") {
+                    alert("诊断完成");
+                    window.location.href = "/request/hall";
+                    return false;
+                } else {
+                    alert("诊断失败");
+                    window.location.href = "/request/hall";
+                    return false;
+                }
+            }
+        })
+    })
+</script>
 </body>
 
 </html>

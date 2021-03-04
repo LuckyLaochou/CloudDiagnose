@@ -14,4 +14,8 @@ public interface RequestService {
 
     RequestDetailVO getRequestDetailById(int id);
 
+    List<RequestDetailVO> getRequestDetailByUserId(int id);
+
+    Boolean updateRequestByDiagnose(int id);
+
 }

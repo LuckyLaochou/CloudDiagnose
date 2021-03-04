@@ -91,17 +91,20 @@
                     <li>
                         <a href="/diagnose/about">关于我们</a>
                     </li>
-                    <li>
+                    <li th:if="${session.user.role eq 2}">
                         <a href="/request/hall">诊断大厅</a>
                     </li>
-                    <li>
+                    <li th:if="${session.user.role eq 2}">
+                        <a href="/diagnose/publish">发布文章</a>
+                    </li>
+                    <li th:if="${session.user.role eq 1}">
                         <a href="/diagnose/appointment">申请</a>
                     </li>
                     <li>
                         <a href="/diagnose/blog">论坛</a>
                     </li>
                     <li>
-                        <a href="/diagnose/publish">发布文章</a>
+                        <a href="/user/my">个人中心</a>
                     </li>
                 </ul>
             </div>
@@ -185,13 +188,13 @@
                         </div>
                         <div class="top-doctor item">
                             <i class="fa fa-stethoscope"></i>
-                            <h2>24 Hour Service</h2>
+                            <h2>24 小时服务</h2>
                             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore dignissimos officia dicta suscipit vel eum</p>
                             <a href="#" class="btn btn-main">Read more</a>
                         </div>
                         <div class="working-time item">
                             <i class="fa fa-hourglass-o"></i>
-                            <h2>Working Hours</h2>
+                            <h2>工作时间</h2>
                             <ul class="w-hours">
                                 <li>星期一 - 星期五  - <span>8:00 - 17:00</span></li>
                             </ul>

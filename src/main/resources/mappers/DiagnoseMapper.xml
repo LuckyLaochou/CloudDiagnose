@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.laochou.diagnose.mapper.DiagnoseMapper">
+
+    <select id="getAlreadyDiagnoseByUserId" parameterType="cn.laochou.diagnose.pojo.User" resultType="cn.laochou.diagnose.vo.DiagnoseDetailVO">
+        select d.*, t.name, t.department from diagnose d,
+        (select u.name,r.id,r.department from user u, request r where u.id = r.user_id and r.department = #{department}) as t
+        where d.request_id = t.id and d.user_id = #{id};
+    </select>
+
+
+    <insert id="insertDiagnose" parameterType="cn.laochou.diagnose.pojo.Diagnose">
+        insert into diagnose(request_id, user_id, diagnose_result, advices, create_time, update_time)
+        values(#{requestId}, #{userId}, #{diagnoseResult}, #{advices}, #{createTime}, #{updateTime})
+    </insert>
+
+
+</mapper>

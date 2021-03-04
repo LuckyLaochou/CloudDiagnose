@@ -75,6 +75,12 @@ public class DiagnoseController {
     }
 
 
+    @RequestMapping("/my")
+    public String toMy() {
+        return "my";
+    }
+
+
     @RequestMapping("/blog/single")
     public String toBlogSingle() {
         return "singleblog";

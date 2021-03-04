@@ -18,6 +18,9 @@ spring:
   servlet:
     multipart:
       location: F:/JAVA/CloudDiagnose/src/main/resources/static
+      # 文件
+      max-file-size: -1
+      max-request-size: -1
 
   resources:
     static-locations: classpath:static/, file:${spring.servlet.multipart.location}

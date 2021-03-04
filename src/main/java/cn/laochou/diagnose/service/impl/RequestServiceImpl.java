@@ -31,4 +31,14 @@ public class RequestServiceImpl implements RequestService {
     public RequestDetailVO getRequestDetailById(int id) {
         return requestMapper.getRequestDetailById(id);
     }
+
+    @Override
+    public List<RequestDetailVO> getRequestDetailByUserId(int id) {
+        return requestMapper.getRequestDetailByUserId(id);
+    }
+
+    @Override
+    public Boolean updateRequestByDiagnose(int id) {
+        return requestMapper.updateRequestByDiagnose(id);
+    }
 }

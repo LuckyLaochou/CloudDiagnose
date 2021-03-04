@@ -1,14 +1,18 @@
 package cn.laochou.diagnose.controller;
 
 import cn.laochou.diagnose.common.ReturnBody;
+import cn.laochou.diagnose.pojo.Diagnose;
 import cn.laochou.diagnose.pojo.Request;
 import cn.laochou.diagnose.pojo.User;
 import cn.laochou.diagnose.service.ArticleService;
+import cn.laochou.diagnose.service.DiagnoseService;
 import cn.laochou.diagnose.service.RequestService;
 import cn.laochou.diagnose.service.UserService;
 import cn.laochou.diagnose.util.CheckUtils;
 import cn.laochou.diagnose.util.DateUtils;
 import cn.laochou.diagnose.util.FileUtils;
+import cn.laochou.diagnose.vo.DiagnoseDetailVO;
+import cn.laochou.diagnose.vo.RequestDetailVO;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 这个Controller主要服务于用户
@@ -37,6 +43,9 @@ public class UserController {
 
     @Autowired
     private ArticleService articleService;
+
+    @Autowired
+    private DiagnoseService diagnoseService;
 
 
 
@@ -86,10 +95,10 @@ public class UserController {
 
     /**
      * 用户诊断申请
-     * @param pictures
-     * @param videos
-     * @param content
-     * @param department
+     * @param pictures 图片
+     * @param videos 视频
+     * @param content 内容
+     * @param department 科系
      * @return
      */
     @RequestMapping("/request")
@@ -129,4 +138,55 @@ public class UserController {
     }
 
 
+    /**
+     * 个人主页
+     * @param request 请求对象
+     * @return 主页
+     */
+    @RequestMapping("/my")
+    public ModelAndView toMy(HttpServletRequest request) {
+        ModelAndView result = new ModelAndView();
+        // 判断是否登录
+        User user = (User) request.getSession().getAttribute("user");
+        if(user == null) {
+            // todo 后续需要删除测试逻辑
+            user = new User();
+            user.setRole(1);
+            user.setId(1);
+            user.setDepartment("皮肤科");
+        }
+        result.addObject("user", user);
+        // 根据用户类别，查找不同的信息
+        // 如果是普通用户，渲染的是自己的申请信息
+        // 如果是医生，渲染的是自己的处理信息
+        if(user.getRole() == 1) {
+            List<RequestDetailVO> requestDetailVOS = requestService.getRequestDetailByUserId(user.getId());
+            result.addObject("data", requestDetailVOS);
+        }else if(user.getRole() == 2) {
+            List<DiagnoseDetailVO> diagnoseDetailVOS = diagnoseService.getAlreadyDiagnoseByUserId(user);
+            result.addObject("data", diagnoseDetailVOS);
+        }
+        result.setViewName("my");
+        return result;
+    }
+
+
+    /**
+     * 诊断请求
+     * @param request
+     * @param diagnose
+     * @return
+     */
+    @RequestMapping("/diagnose")
+    @ResponseBody
+    public ReturnBody<Object> diagnose(HttpServletRequest request, @RequestBody Diagnose diagnose) {
+        User user = (User) request.getSession().getAttribute("user");
+        diagnose.setUserId(user.getId());
+        diagnose.setCreateTime(DateUtils.getTimeFormDefaultFormat());
+        diagnose.setUpdateTime(DateUtils.getTimeFormDefaultFormat());
+        boolean result = diagnoseService.insertDiagnose(diagnose);
+        // 在这里，还需要修改Request中的状态哦
+        boolean update = requestService.updateRequestByDiagnose(diagnose.getRequestId());
+        return result && update ? ReturnBody.getSuccessReturnBody("success") : ReturnBody.getSuccessReturnBody("error");
+    }
 }

@@ -91,26 +91,29 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                  <ul class="nav navbar-nav">
-                      <li class="active">
-                          <a href="/diagnose/index">主页</a>
-                      </li>
-                      <li>
-                          <a href="/diagnose/about">关于我们</a>
-                      </li>
-                      <li>
-                          <a href="/diagnose/service">服务</a>
-                      </li>
-                      <li>
-                          <a href="/diagnose/appointment">申请</a>
-                      </li>
-                      <li>
-                          <a href="/diagnose/blog">论坛</a>
-                      </li>
-                      <li>
-                          <a href="/diagnose/publish">发布文章</a>
-                      </li>
-                  </ul>
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="/diagnose/index">主页</a>
+                    </li>
+                    <li>
+                        <a href="/diagnose/about">关于我们</a>
+                    </li>
+                    <li th:if="${session.user.role eq 2}">
+                        <a href="/request/hall">诊断大厅</a>
+                    </li>
+                    <li th:if="${session.user.role eq 2}">
+                        <a href="/diagnose/publish">发布文章</a>
+                    </li>
+                    <li th:if="${session.user.role eq 1}">
+                        <a href="/diagnose/appointment">申请</a>
+                    </li>
+                    <li>
+                        <a href="/diagnose/blog">论坛</a>
+                    </li>
+                    <li>
+                        <a href="/user/my">个人中心</a>
+                    </li>
+                </ul>
             </div>
             <!-- /.navbar-collapse -->
       </div>

@@ -6,10 +6,18 @@
     </insert>
 
     <select id="getRequestByDepartment" parameterType="string" resultType="cn.laochou.diagnose.vo.RequestVO">
-        select r.id, u.name, r.content, r.pictures  from request r LEFT JOIN `user` u on r.department = #{department} and u.id = r.user_id and r.is_diagnose = 0;
+        select r.id, u.name, r.content, r.pictures  from request r, `user` u where r.department = #{department} and u.id = r.user_id and r.is_diagnose = 0;
     </select>
 
     <select id="getRequestDetailById" parameterType="int" resultType="cn.laochou.diagnose.vo.RequestDetailVO">
-        select r.*, u.name from request r LEFT JOIN `user` u on r.department = #{department} and u.id = r.user_id;
+        select r.*, u.name from request r,`user` u where r.id = #{id} and r.user_id = u.id;
     </select>
+
+    <select id="getRequestDetailByUserId" parameterType="int" resultType="cn.laochou.diagnose.vo.RequestDetailVO">
+        select r.*, u.name from request r,`user` u where u.id = #{id} and r.user_id = u.id;
+    </select>
+
+    <update id="updateRequestByDiagnose">
+        update request set is_dispose = 1, is_diagnose = 1 where id = #{id}
+    </update>
 </mapper>

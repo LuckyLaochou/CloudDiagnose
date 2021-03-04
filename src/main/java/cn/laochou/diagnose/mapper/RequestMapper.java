@@ -15,4 +15,8 @@ public interface RequestMapper {
     List<RequestVO> getRequestByDepartment(String department);
 
     RequestDetailVO getRequestDetailById(int id);
+
+    List<RequestDetailVO> getRequestDetailByUserId(int id);
+
+    Boolean updateRequestByDiagnose(int id);
 }
