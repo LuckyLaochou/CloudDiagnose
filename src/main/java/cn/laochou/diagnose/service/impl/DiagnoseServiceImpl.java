@@ -28,4 +28,9 @@ public class DiagnoseServiceImpl implements DiagnoseService {
         return result > 0;
     }
 
+    @Override
+    public Diagnose getDiagnoseByRequestId(int id) {
+        return diagnoseMapper.getDiagnoseByRequestId(id);
+    }
+
 }

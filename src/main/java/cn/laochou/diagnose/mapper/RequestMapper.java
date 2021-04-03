@@ -1,6 +1,7 @@
 package cn.laochou.diagnose.mapper;
 
 import cn.laochou.diagnose.pojo.Request;
+import cn.laochou.diagnose.search.RequestSearchCondition;
 import cn.laochou.diagnose.vo.RequestDetailVO;
 import cn.laochou.diagnose.vo.RequestVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -19,4 +20,14 @@ public interface RequestMapper {
     List<RequestDetailVO> getRequestDetailByUserId(int id);
 
     Boolean updateRequestByDiagnose(int id);
+
+    void updateRequestByPreDiagnose(int id);
+
+    List<Request> selectAllRequest();
+
+    void updateRequest(Request request);
+
+    void delRequestById(int id);
+
+    List<Request> selectRequestByCondition(RequestSearchCondition condition);
 }

@@ -12,22 +12,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReturnBody<T> {
 
-    private int status;
+    private int code;
 
-    private String message;
+    private String msg;
 
-    private T result;
+    private T data;
 
-    public ReturnBody(int status, String message) {
-        this(status, message, null);
+    public ReturnBody(int code, String msg) {
+        this(code, msg, null);
     }
 
-    public static ReturnBody<Object> getSuccessReturnBody(String message) {
-        return new ReturnBody<>(200, message);
+    public static ReturnBody<Object> getSuccessReturnBody(String msg) {
+        return new ReturnBody<>(0, msg);
     }
 
-    public static <T> ReturnBody<T> getSuccessReturnBody(String message, T result) {
-        return new ReturnBody<>(200, message, result);
+    public static <T> ReturnBody<T> getSuccessReturnBody(String msg, T data) {
+        return new ReturnBody<>(0, msg, data);
     }
 
     public static ReturnBody<Object> getErrorReturnBody(String message) {
@@ -35,13 +35,13 @@ public class ReturnBody<T> {
     }
 
 
-    public static <T> ReturnBody<T> getErrorReturnBody(String message, T result) {
-        return new ReturnBody<>(500, message, result);
+    public static <T> ReturnBody<T> getErrorReturnBody(String msg, T data) {
+        return new ReturnBody<>(500, msg, data);
     }
 
 
-    public static ReturnBody<Object> getParamErrorReturnBody(String message) {
-        return new ReturnBody<>(300, message);
+    public static ReturnBody<Object> getParamErrorReturnBody(String msg) {
+        return new ReturnBody<>(300, msg);
     }
 
 }

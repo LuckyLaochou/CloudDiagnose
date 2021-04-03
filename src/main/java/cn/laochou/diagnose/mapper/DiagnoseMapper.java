@@ -13,4 +13,6 @@ public interface DiagnoseMapper {
     List<DiagnoseDetailVO> getAlreadyDiagnoseByUserId(User user);
 
     int insertDiagnose(Diagnose diagnose);
+
+    Diagnose getDiagnoseByRequestId(int id);
 }

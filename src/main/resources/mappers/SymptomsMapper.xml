@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.laochou.diagnose.mapper.SymptomsMapper">
+    <select id="getAllSymptoms" resultType="cn.laochou.diagnose.pojo.Symptoms">
+        select * from symptoms;
+    </select>
+
+    <update id="updateSymptoms" parameterType="cn.laochou.diagnose.pojo.Symptoms">
+        update symptoms set name = #{name} and symptoms = #{symptoms} where id = #{id}
+    </update>
+
+    <delete id="delSymptomsById">
+        delete from symptoms where id = #{id}
+    </delete>
+
+    <select id="searchSymptomsByCondition" parameterType="cn.laochou.diagnose.search.SymptomsSearchCondition" resultType="cn.laochou.diagnose.pojo.Symptoms">
+        select * from symptoms where 1 = 1
+        <if test="id != null and id != ''">
+            and id = #{id}
+        </if>
+        <if test="name != null and name != ''">
+            and name like CONCAT('%', #{name}, '%')
+        </if>
+        <if test="symptoms != null and symptoms != ''">
+            and symptoms like CONCAT('%', #{symptoms}, '%')
+        </if>
+    </select>
+
+    <insert id="insertSymptoms" parameterType="cn.laochou.diagnose.pojo.Symptoms">
+        insert into symptoms(name, symptoms) values(#{name}, #{symptoms})
+    </insert>
+</mapper>

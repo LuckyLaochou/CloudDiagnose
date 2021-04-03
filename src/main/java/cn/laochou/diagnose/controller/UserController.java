@@ -1,5 +1,6 @@
 package cn.laochou.diagnose.controller;
 
+import cn.laochou.diagnose.bo.UserBO;
 import cn.laochou.diagnose.common.ReturnBody;
 import cn.laochou.diagnose.pojo.Diagnose;
 import cn.laochou.diagnose.pojo.Request;
@@ -23,8 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -56,13 +57,17 @@ public class UserController {
      */
     @RequestMapping("/register")
     @ResponseBody
-    public ReturnBody<Object> userRegister(@RequestBody User user) {
-        // 对于User里面的参数进行校验
-        if(!CheckUtils.validIdCard(user.getIdCard())) {
-            return ReturnBody.getParamErrorReturnBody("参数错误");
+    public ReturnBody<Object> userRegister(@RequestBody UserBO user) {
+        System.out.println(user);
+        if(!user.getPassword().equals(user.getRePassword())) {
+            return ReturnBody.getSuccessReturnBody("密码不一致");
         }
+        // 对于User里面的参数进行校验
+//        if(!CheckUtils.validIdCard(user.getIdCard())) {
+//            return ReturnBody.getParamErrorReturnBody("参数错误");
+//        }
         user.setCreateTime(DateUtils.getTimeFormDefaultFormat());
-        user.setCreateTime(DateUtils.getTimeFormDefaultFormat());
+        user.setUpdateTime(DateUtils.getTimeFormDefaultFormat());
         boolean res = userService.insertUser(user);
         if(res) return ReturnBody.getSuccessReturnBody("注册成功");
         return ReturnBody.getErrorReturnBody("注册失败");
@@ -93,6 +98,7 @@ public class UserController {
     }
 
 
+
     /**
      * 用户诊断申请
      * @param pictures 图片
@@ -108,9 +114,7 @@ public class UserController {
         Request diagnoseRequest = new Request();
         User user = (User) request.getSession().getAttribute("user");
         if(user == null) {
-            // todo 这里便于开发就不直接返回了
-            diagnoseRequest.setUserId(1);
-//            return ReturnBody.getSuccessReturnBody( "您还没有登录");
+            return ReturnBody.getSuccessReturnBody("您还没登陆", null);
         }else {
             diagnoseRequest.setUserId(user.getId());
         }
@@ -133,7 +137,7 @@ public class UserController {
         diagnoseRequest.setUpdateTime(DateUtils.getTimeFormDefaultFormat());
         log.info(JSON.toJSONString(diagnoseRequest));
         boolean res = requestService.insertRequest(diagnoseRequest);
-        if(res) return ReturnBody.getSuccessReturnBody("申请成功");
+        if(res) return ReturnBody.getSuccessReturnBody("申请成功", diagnoseRequest.getId());
         return ReturnBody.getSuccessReturnBody("申请失败");
     }
 
@@ -144,17 +148,9 @@ public class UserController {
      * @return 主页
      */
     @RequestMapping("/my")
-    public ModelAndView toMy(HttpServletRequest request) {
+    public ModelAndView toMy(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView result = new ModelAndView();
-        // 判断是否登录
         User user = (User) request.getSession().getAttribute("user");
-        if(user == null) {
-            // todo 后续需要删除测试逻辑
-            user = new User();
-            user.setRole(1);
-            user.setId(1);
-            user.setDepartment("皮肤科");
-        }
         result.addObject("user", user);
         // 根据用户类别，查找不同的信息
         // 如果是普通用户，渲染的是自己的申请信息

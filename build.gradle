@@ -48,6 +48,10 @@ dependencies {
     // https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils
     compile group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.3'
 
+    // https://mvnrepository.com/artifact/com.hankcs/hanlp
+    implementation group: 'com.hankcs', name: 'hanlp', version: 'portable-1.7.8'
+
+
 
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {

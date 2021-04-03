@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.laochou.diagnose.mapper.UserMapper">
-    <insert id="insertUser" parameterType="cn.laochou.diagnose.pojo.User" useGeneratedKeys="true" keyProperty="id">
-        insert into user(name, id_card, mail, sex, create_time, update_time) values(#{user.name}, #{user.idCard}, #{user.protrait}, #{user.mail}, #{user.sex}, #{user.createTime}, #{user.updateTime});
+    <insert id="insertUser" parameterType="cn.laochou.diagnose.bo.UserBO" useGeneratedKeys="true" keyProperty="id">
+        insert into user(phone, name, id_card, mail, password, sex, role, create_time, update_time) values(#{phone}, #{name}, #{idCard}, #{mail},#{password},#{sex}, #{role}, #{createTime}, #{updateTime});
     </insert>
 
     <select id="selectUserByPhoneAndPassword" parameterType="string" resultType="user">
@@ -11,6 +11,34 @@
 
     <select id="selectUserById" parameterType="int" resultType="user">
         select * from user where id = #{id}
+    </select>
+
+    <select id="selectAllUser" resultType="cn.laochou.diagnose.pojo.User">
+        select * from user;
+    </select>
+
+    <update id="updateUser" parameterType="cn.laochou.diagnose.pojo.User">
+        update user set name = #{name}, id_card = #{idCard}, mail = #{mail}, phone = #{phone}, role = #{role} where id = #{id};
+    </update>
+
+    <delete id="delUserById">
+        delete from user where id = #{id}
+    </delete>
+
+    <select id="selectUserByCondition" parameterType="cn.laochou.diagnose.search.UserSearchCondition" resultType="cn.laochou.diagnose.pojo.User">
+        select * from user where 1 = 1
+        <if test="id != null and id != ''">
+            and id = #{id}
+        </if>
+        <if test="name != null and name != ''">
+            and name like CONCAT('%', #{name}, '%')
+        </if>
+        <if test="email != null and email != ''">
+            and email like CONCAT('%', #{email}, '%')
+        </if>
+        <if test="sex != null and sex != ''">
+            and sex = #{sex}
+        </if>
     </select>
 
 </mapper>

@@ -2,6 +2,7 @@ package cn.laochou.diagnose.service.impl;
 
 import cn.laochou.diagnose.mapper.RequestMapper;
 import cn.laochou.diagnose.pojo.Request;
+import cn.laochou.diagnose.search.RequestSearchCondition;
 import cn.laochou.diagnose.service.RequestService;
 import cn.laochou.diagnose.vo.RequestDetailVO;
 import cn.laochou.diagnose.vo.RequestVO;
@@ -40,5 +41,30 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public Boolean updateRequestByDiagnose(int id) {
         return requestMapper.updateRequestByDiagnose(id);
+    }
+
+    @Override
+    public void updateRequestByPreDiagnose(int id) {
+        requestMapper.updateRequestByPreDiagnose(id);
+    }
+
+    @Override
+    public List<Request> selectAllRequest() {
+        return requestMapper.selectAllRequest();
+    }
+
+    @Override
+    public void updateRequest(Request request) {
+        requestMapper.updateRequest(request);
+    }
+
+    @Override
+    public void delRequestById(int id) {
+        requestMapper.delRequestById(id);
+    }
+
+    @Override
+    public List<Request> searchRequestByCondition(RequestSearchCondition condition) {
+        return requestMapper.selectRequestByCondition(condition);
     }
 }

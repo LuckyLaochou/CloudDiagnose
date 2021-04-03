@@ -2,6 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.laochou.diagnose.mapper.RequestMapper">
     <insert id="insertRequest" parameterType="cn.laochou.diagnose.pojo.Request">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
         insert into request (user_id, department, content, pictures, video, create_time, update_time) values(#{userId}, #{department}, #{content}, #{pictures}, #{video}, #{createTime}, #{updateTime});
     </insert>
 
@@ -20,4 +23,33 @@
     <update id="updateRequestByDiagnose">
         update request set is_dispose = 1, is_diagnose = 1 where id = #{id}
     </update>
+
+    <update id="updateRequestByPreDiagnose">
+        update request set is_pre_diagnose = 1 where id = #{id}
+    </update>
+
+    <select id="selectAllRequest" resultType="cn.laochou.diagnose.pojo.Request">
+        select * from request
+    </select>
+
+    <update id="updateRequest" parameterType="cn.laochou.diagnose.pojo.Request">
+        update request set department = #{department}, content = #{content}, is_pre_diagnose = #{isPreDiagnose}, is_diagnose = #{isDiagnose}, is_dispose = #{isDispose} where id = #{id}
+    </update>
+
+    <delete id="delRequestById">
+        delete from request where id = #{id}
+    </delete>
+
+    <select id="selectRequestByCondition" parameterType="cn.laochou.diagnose.search.RequestSearchCondition" resultType="cn.laochou.diagnose.pojo.Request">
+        select * from request where 1 = 1
+        <if test="userId != null and userId != ''">
+            and user_id = #{userId}
+        </if>
+        <if test="department != null and department != ''">
+            and department like CONCAT('%', #{department}, '%')
+        </if>
+        <if test="content != null and content != ''">
+            and content like CONCAT('%', #{content}, '%')
+        </if>
+    </select>
 </mapper>

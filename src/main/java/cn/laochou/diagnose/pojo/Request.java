@@ -19,11 +19,11 @@ public class Request {
 
     private String video;
 
-    private int isPreDiagnose;
+    private String isPreDiagnose;
 
-    private int isDiagnose;
+    private String isDiagnose;
 
-    private int isDispose;
+    private String isDispose;
 
     private String createTime;
 
@@ -78,27 +78,27 @@ public class Request {
         this.video = video;
     }
 
-    public int getIsPreDiagnose() {
+    public String getIsPreDiagnose() {
         return isPreDiagnose;
     }
 
-    public void setIsPreDiagnose(int isPreDiagnose) {
+    public void setIsPreDiagnose(String isPreDiagnose) {
         this.isPreDiagnose = isPreDiagnose;
     }
 
-    public int getIsDiagnose() {
+    public String getIsDiagnose() {
         return isDiagnose;
     }
 
-    public void setIsDiagnose(int isDiagnose) {
+    public void setIsDiagnose(String isDiagnose) {
         this.isDiagnose = isDiagnose;
     }
 
-    public int getIsDispose() {
+    public String getIsDispose() {
         return isDispose;
     }
 
-    public void setIsDispose(int isDispose) {
+    public void setIsDispose(String isDispose) {
         this.isDispose = isDispose;
     }
 
@@ -116,5 +116,23 @@ public class Request {
 
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", department='" + department + '\'' +
+                ", content='" + content + '\'' +
+                ", pictures='" + pictures + '\'' +
+                ", video='" + video + '\'' +
+                ", isPreDiagnose='" + isPreDiagnose + '\'' +
+                ", isDiagnose='" + isDiagnose + '\'' +
+                ", isDispose='" + isDispose + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", updateTime='" + updateTime + '\'' +
+                '}';
     }
 }

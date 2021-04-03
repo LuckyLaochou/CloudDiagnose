@@ -15,4 +15,8 @@
     </insert>
 
 
+    <select id="getDiagnoseByRequestId" parameterType="int" resultType="cn.laochou.diagnose.pojo.Diagnose">
+        select * from diagnose where request_id = #{id}
+    </select>
+
 </mapper>

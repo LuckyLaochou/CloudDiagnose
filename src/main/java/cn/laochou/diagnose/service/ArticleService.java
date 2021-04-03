@@ -15,4 +15,5 @@ public interface ArticleService {
     public List<Article> getAllArticle();
 
 
+    List<Article> searchArticleByKeyword(String keyword);
 }

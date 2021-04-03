@@ -1,6 +1,7 @@
 package cn.laochou.diagnose.service;
 
 import cn.laochou.diagnose.pojo.Request;
+import cn.laochou.diagnose.search.RequestSearchCondition;
 import cn.laochou.diagnose.vo.RequestDetailVO;
 import cn.laochou.diagnose.vo.RequestVO;
 
@@ -18,4 +19,13 @@ public interface RequestService {
 
     Boolean updateRequestByDiagnose(int id);
 
+    void updateRequestByPreDiagnose(int id);
+
+    List<Request> selectAllRequest();
+
+    void updateRequest(Request request);
+
+    void delRequestById(int id);
+
+    List<Request> searchRequestByCondition(RequestSearchCondition condition);
 }

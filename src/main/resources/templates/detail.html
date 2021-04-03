@@ -144,13 +144,14 @@
                         <p><span>病情描述</span><br>
                             <span th:text="${detail.content}"></span>
                         </p>
-                        <h4>预诊断-诊断结果</h4>
-                        <ul>
-                            <li><i class="fa fa-caret-right"></i>暂无</li>
-                            <li><i class="fa fa-caret-right"></i>暂无</li>
-                            <li><i class="fa fa-caret-right"></i>暂无</li>
-                            <li><i class="fa fa-caret-right"></i>暂无</li>
-                        </ul>
+                        <div th:if="${detail.isPreDiagnose eq 1}">
+                            <h4>预诊断-诊断结果</h4>
+                            <ul>
+                                <div th:each="pre:${preDiagnose}">
+                                    <li><i class="fa fa-caret-right" th:text="${pre}"></i></li>
+                                </div>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -212,28 +213,84 @@
                         </div>
                     </div>
                 </div>
-                <div class="service-box col-md-12">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <img class="img-responsive" src="images/services/service-one.jpg" alt="service-image">
-                        </div>
-                        <form>
+
+                <div th:if="${session.user.role eq 1}">
+                    <div class="service-box col-md-12" th:if="${detail.isDiagnose eq 0}">
+                        <div>还未做出诊断</div>
+                    </div>
+                    <div class="service-box col-md-12" th:if="${detail.isDiagnose eq 1}">
+                        <div class="row">
                             <div class="col-md-6">
-                                <div class="contents">
-                                    <div class="section-title">
-                                        <h3>诊断</h3>
-                                    </div>
-                                    <div class="text">
-                                        <input type="hidden" id="requestId" name="requestId" th:value="${detail.id}">
-                                        <span>诊断结果</span><input type="text" id="diagnoseResult" name="diagnoseResult">
-                                        <label>
-                                            <textarea style="width: 500px; height: 200px" id="advices" name="advices"></textarea>
-                                        </label>
-                                    </div>
-                                    <button href="#" class="btn btn-style-one" id="diagnoseButton">确认</button>
-                                </div>
+                                <img class="img-responsive" src="images/services/service-one.jpg" alt="service-image">
                             </div>
-                        </form>
+                            <form>
+                                <div class="col-md-6">
+                                    <div class="contents">
+                                        <div class="section-title">
+                                            <h3>诊断</h3>
+                                        </div>
+                                        <div class="text">
+                                            <input type="hidden" id="requestId" name="requestId" th:value="${detail.id}">
+                                            <span>诊断结果</span><input type="text" id="diagnoseResult" name="diagnoseResult" th:value="${diagnose.diagnoseResult}" readonly>
+                                            <label>
+                                                <textarea style="width: 500px; height: 200px" id="advices" name="advices" th:value="${diagnose.advices}" readonly></textarea>
+                                            </label>
+                                        </div>
+                                        <button href="#" class="btn btn-style-one" id="diagnoseButton">确认</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${session.user.role eq 2}">
+                    <div class="service-box col-md-12" th:if="${detail.isDiagnose eq 1}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img class="img-responsive" src="images/services/service-one.jpg" alt="service-image">
+                            </div>
+                            <form>
+                                <div class="col-md-6">
+                                    <div class="contents">
+                                        <div class="section-title">
+                                            <h3>诊断</h3>
+                                        </div>
+                                        <div class="text">
+                                            <input type="hidden" id="requestId" name="requestId" th:value="${detail.id}">
+                                            <span>诊断结果</span><input type="text" id="diagnoseResult" name="diagnoseResult" th:value="${diagnose.diagnoseResult}" readonly>
+                                            <label>
+                                                <textarea style="width: 500px; height: 200px" id="advices" name="advices" th:value="${diagnose.advices}" readonly></textarea>
+                                            </label>
+                                        </div>
+                                        <button href="#" class="btn btn-style-one" id="diagnoseButton">确认</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="service-box col-md-12" th:if="${detail.isDiagnose eq 0}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img class="img-responsive" src="images/services/service-one.jpg" alt="service-image">
+                            </div>
+                            <form>
+                                <div class="col-md-6">
+                                    <div class="contents">
+                                        <div class="section-title">
+                                            <h3>诊断</h3>
+                                        </div>
+                                        <div class="text">
+                                            <input type="hidden" id="requestId" name="requestId" th:value="${detail.id}">
+                                            <span>诊断结果</span><input type="text" id="diagnoseResult" name="diagnoseResult">
+                                            <label>
+                                                <textarea style="width: 500px; height: 200px" id="advices" name="advices"></textarea>
+                                            </label>
+                                        </div>
+                                        <button href="#" class="btn btn-style-one" id="diagnoseButton">确认</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

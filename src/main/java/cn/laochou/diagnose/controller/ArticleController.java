@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,17 +46,10 @@ public class ArticleController {
 
     @RequestMapping("/publish")
     @ResponseBody
-    public ReturnBody<Object> publishArticle(HttpServletRequest request, Article article) {
+    public ReturnBody<Object> publishArticle(HttpServletRequest request, Article article, HttpServletResponse response) {
         log.info(JSON.toJSONString(article));
-        // 在这里需要判断用户的身份和用户是否登录
         User user = (User) request.getSession().getAttribute("user");
-        if(user == null) {
-            // 没有登陆
-            // todo 应该跳转到登录页面
-            article.setUserId(1);
-        }else {
-            article.setUserId(user.getId());
-        }
+        article.setUserId(user.getId());
         article.setCreateTime(DateUtils.getTimeFormDefaultFormat());
         article.setUpdateTime(DateUtils.getTimeFormDefaultFormat());
         boolean res = articleService.publishArticle(article);
@@ -109,6 +102,16 @@ public class ArticleController {
         modelAndView.setViewName("singleblog");
         modelAndView.addObject("comments", commentVOS);
         modelAndView.addObject("article", article);
+        return modelAndView;
+    }
+
+    @RequestMapping("/search")
+    public ModelAndView searchArticle(String keyword) {
+        ModelAndView modelAndView = new ModelAndView();
+        List<Article> articles = articleService.searchArticleByKeyword(keyword);
+        log.info(JSON.toJSONString(articles));
+        modelAndView.setViewName("blog");
+        modelAndView.addObject("articles", articles);
         return modelAndView;
     }
 

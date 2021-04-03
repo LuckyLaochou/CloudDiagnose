@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.laochou.diagnose.mapper.PreDiagnoseMapper">
+    <insert id="insertPreDiagnose" parameterType="cn.laochou.diagnose.pojo.PreDiagnose">
+        insert into pre_diagnose(request_id, pre_diagnose_result, create_time, update_time)
+        values (#{requestId}, #{preDiagnoseResult}, #{createTime}, #{updateTime})
+    </insert>
+
+    <select id="getPreDiagnoseByRequestId" resultType="cn.laochou.diagnose.pojo.PreDiagnose">
+        select * from pre_diagnose where request_id = #{id};
+    </select>
+</mapper>

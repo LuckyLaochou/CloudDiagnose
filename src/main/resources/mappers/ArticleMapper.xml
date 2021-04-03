@@ -12,4 +12,8 @@
     <select id="getAllArticle" resultType="cn.laochou.diagnose.pojo.Article">
         select * from article;
     </select>
+
+    <select id="searchArticleByKeyword" resultType="cn.laochou.diagnose.pojo.Article">
+        select * from article where title like CONCAT('%', #{keyword}, '%')
+    </select>
 </mapper>

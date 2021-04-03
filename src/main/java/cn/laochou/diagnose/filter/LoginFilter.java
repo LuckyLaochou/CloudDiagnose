@@ -26,13 +26,13 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest servletRequest = (HttpServletRequest) request;
         String uri = servletRequest.getRequestURI();
-        if(uri.contains("js") || uri.contains("css") || uri.contains("html") || uri.equals("/user/login") || uri.equals("/diagnose/login")) {
+        if(uri.contains("js") || uri.contains("css") || uri.contains("html") || uri.equals("/user/login") || uri.equals("/diagnose/login") || uri.equals("/user/register") || uri.equals("/diagnose/register")) {
             chain.doFilter(request, response);
             return;
         }
         User user = (User) servletRequest.getSession().getAttribute("user");
         if(user == null) {
-            request.getRequestDispatcher("login.html").forward(request, response);
+            request.getRequestDispatcher("/diagnose/login").forward(request, response);
             return;
         }
         chain.doFilter(request, response);

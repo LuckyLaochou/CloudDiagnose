@@ -11,4 +11,29 @@
         values(#{articleId}, #{userId}, #{content}, #{createTime}, #{updateTime});
     </insert>
 
+    <select id="selectAllComment" resultType="cn.laochou.diagnose.pojo.Comment">
+        select * from comment;
+    </select>
+
+    <update id="updateComment" parameterType="cn.laochou.diagnose.pojo.Comment">
+        update comment set content = #{content} where id = #{id}
+    </update>
+
+    <delete id="delCommentById">
+        delete from comment where id = #{id}
+    </delete>
+
+    <select id="searchCommentByCondition" parameterType="cn.laochou.diagnose.search.CommentSearchCondition" resultType="cn.laochou.diagnose.pojo.Comment">
+        select * from comment where 1 = 1
+        <if test="userId != null and userId != ''">
+            and user_id = #{userId}
+        </if>
+        <if test="articleId != null and articleId != ''">
+            and article_id = #{articleId}
+        </if>
+        <if test="content != null and content != ''">
+            and content like CONCAT('%', #{content}, '%')
+        </if>
+    </select>
+
 </mapper>

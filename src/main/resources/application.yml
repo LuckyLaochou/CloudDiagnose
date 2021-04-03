@@ -23,4 +23,4 @@ spring:
       max-request-size: -1
 
   resources:
-    static-locations: classpath:static/, file:${spring.servlet.multipart.location}
+    static-locations: classpath:static/, file:${spring.servlet.multipart.location}, classpath:admin/admin/std/

@@ -156,6 +156,7 @@
                                         <option th:value="皮肤科">皮肤科</option>
                                         <option th:value="骨科">骨科</option>
                                         <option th:value="神经科">神经科</option>
+                                        <option th:value="呼吸科">呼吸科</option>
                                     </select>
                                 </div>                            
                             </div>
@@ -416,7 +417,11 @@
             dataType: 'JSON',
             processData: false,
             success: function (result) {
-                alert(result.message);
+                alert(result.msg);
+                $.ajax({
+                    url : '/pre/diagnose/' + result.data,
+                    type : 'post'
+                })
             }
 
         });

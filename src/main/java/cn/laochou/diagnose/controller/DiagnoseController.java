@@ -29,6 +29,11 @@ public class DiagnoseController {
         return "login";
     }
 
+    @RequestMapping("/register")
+    public String toRegister() {
+        return "register";
+    }
+
     @RequestMapping("/index")
     public String toIndex() {
         return "index";

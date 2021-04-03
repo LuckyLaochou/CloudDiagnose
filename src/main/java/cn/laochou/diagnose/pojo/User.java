@@ -19,7 +19,7 @@ public class User {
     private String password;
     private String phone;
     // 用户性别
-    private int sex;
+    private String sex;
     // 用户角色
     private int role;
     // 用户科系
@@ -78,11 +78,11 @@ public class User {
         this.phone = phone;
     }
 
-    public int getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

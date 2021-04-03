@@ -189,6 +189,7 @@
                         <th>诊断结果</th>
                         <th>建议</th>
                         <th>诊断时间</th>
+                        <th>操作</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -202,6 +203,7 @@
                         <td th:text="${item.diagnoseResult}"></td>
                         <td th:text="${item.advices}"></td>
                         <td th:text="${item.createTime}"></td>
+                        <td><a th:href="@{/request/get/{id}(id=${item.id})}">查看详情</a></td>
                     </tr>
                 </div>
                 </tbody>
@@ -216,6 +218,7 @@
                     <th>内容</th>
                     <th>是否诊断</th>
                     <th>申请时间</th>
+                    <th>操作</th>
                 </thead>
                 <tbody>
                     <div th:each="item:${data}">
@@ -230,6 +233,7 @@
                             <td th:text="未处理"></td>
                         </div>
                         <td th:text="${item.createTime}"></td>
+                        <td><a th:href="@{/request/get/{id}(id=${item.id})}">查看详情</a></td>
                     </div>
                 </tbody>
             </div>

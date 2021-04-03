@@ -24,6 +24,8 @@
   <!--Favicon-->
   <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
   <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+  <link rel="stylesheet" th:href="@{/layuiadmin/layui/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/layuiadmin/style/admin.css}" media="all">
 
 </head>
 
@@ -145,14 +147,14 @@
     <div id="layout">
         <header>
             <h1>写作中心</h1>
+            <form name="mdEditorForm">
+                标题        :<input type="text" name="title" class="layui-input"/><br>
+                关键词 :<input type="text" name="keywords" class="layui-input"/>
+                <div id="test-editormd">
+                    <textarea name="content" id="content" style="display:none;"></textarea>
+                </div>
+            </form>
         </header>
-        <form name="mdEditorForm">
-            标题:<input type="text" name="title"/><br>
-            关键词:<input type="text" name="keywords"/>
-            <div id="test-editormd">
-                <textarea name="content" id="content" style="display:none;"></textarea>
-            </div>
-        </form>
     </div>
 </section>
 <!--====  End of Contact Form  ====-->

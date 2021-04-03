@@ -13,6 +13,10 @@
 
 	<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
 	<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-theme.css}">
+
+	<style>
+
+	</style>
 </head>
 
 <body>
@@ -37,7 +41,7 @@
 							<a href="" class="signuplink">忘记密码？</a>
 						</div>
 					</form>
-					<p class="signup">Don’t have an account? <a href="注册页面" class="signuplink">注册</a></p>
+					<p class="signup">没有账号? <a href="/diagnose/register" class="signuplink">注册</a></p>
 				</div>
 			</div>
 		</div>
@@ -58,7 +62,7 @@
 				type: 'post',
 				contentType: 'application/json',
 				success: function (result) {
-					var message = result.message;
+					var message = result.msg;
 					if (message === "登陆成功") {
 						alert(message);
 						window.location.href = "/diagnose/index";
