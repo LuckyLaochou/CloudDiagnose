@@ -53,4 +53,9 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectUserByCondition(condition);
     }
 
+    @Override
+    public void updateUserByDepartment(User user) {
+        userMapper.updateUserByDepartment(user);
+    }
+
 }

@@ -96,10 +96,10 @@
                     <li>
                         <a href="/diagnose/about">关于我们</a>
                     </li>
-                    <li th:if="${session.user.role eq 2}">
+                    <li th:if="${session.user.role eq 2&&session.user.department !='用户系'}">
                         <a href="/request/hall">诊断大厅</a>
                     </li>
-                    <li th:if="${session.user.role eq 2}">
+                    <li th:if="${session.user.role eq 2&&session.user.department !='用户系'}">
                         <a href="/diagnose/publish">发布文章</a>
                     </li>
                     <li th:if="${session.user.role eq 1}">
@@ -108,8 +108,14 @@
                     <li>
                         <a href="/diagnose/blog">论坛</a>
                     </li>
+                    <li th:if="${session.user.role eq 2&&session.user.department =='用户系'}">
+                        <a href="/diagnose/auth">认证中心</a>
+                    </li>
                     <li>
                         <a href="/user/my">个人中心</a>
+                    </li>
+                    <li>
+                        <a href="/diagnose/logout">退出系统</a>
                     </li>
                 </ul>
             </div>
@@ -126,7 +132,7 @@
             <h1>诊断大厅</h1>
             <ul class="title-menu clearfix">
                 <li>
-                    <a href="index.html">主页 &nbsp;/</a>
+                    <a href="/diagnose/index">主页 &nbsp;/</a>
                 </li>
                 <li>诊断大厅</li>
             </ul>
@@ -142,8 +148,8 @@
                   <h3>您的科室
                       <span th:text="${doctor.department}"></span>
                   </h3>
-                  <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet. qui suscipit atque <br>
-                      fugiat officia corporis rerum eaque neque totam animi, sapiente culpa. Architecto!</p>
+                  <p>以下是您可以诊断的 <br>
+                      用户申请</p>
               </div>
               <div class="row items-container clearfix">
                   <div th:each="request:${requests}">

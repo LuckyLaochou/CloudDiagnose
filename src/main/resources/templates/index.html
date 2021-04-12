@@ -91,10 +91,10 @@
                     <li>
                         <a href="/diagnose/about">关于我们</a>
                     </li>
-                    <li th:if="${session.user.role eq 2}">
+                    <li th:if="${session.user.role eq 2&&session.user.department !='用户系'}">
                         <a href="/request/hall">诊断大厅</a>
                     </li>
-                    <li th:if="${session.user.role eq 2}">
+                    <li th:if="${session.user.role eq 2&&session.user.department !='用户系'}">
                         <a href="/diagnose/publish">发布文章</a>
                     </li>
                     <li th:if="${session.user.role eq 1}">
@@ -103,8 +103,14 @@
                     <li>
                         <a href="/diagnose/blog">论坛</a>
                     </li>
+                    <li th:if="${session.user.role eq 2&&session.user.department =='用户系'}">
+                        <a href="/diagnose/auth">认证中心</a>
+                    </li>
                     <li>
                         <a href="/user/my">个人中心</a>
+                    </li>
+                    <li>
+                        <a href="/diagnose/logout">退出系统</a>
                     </li>
                 </ul>
             </div>
@@ -472,7 +478,7 @@
                 <div class="item">
                     <div class="inner-box">
                         <div class="img_holder">
-                            <a href="hall.html">
+                            <a href="#">
                                 <img th:src="@{/images/gallery/1.jpg}" alt="images" class="img-responsive">
                             </a>
                         </div>
@@ -488,13 +494,13 @@
                 <div class="item">
                     <div class="inner-box">
                         <div class="img_holder">
-                            <a href="hall.html">
+                            <a href="#">
                                 <img th:src="@{/images/gallery/2.jpg}" alt="images" class="img-responsive">
                             </a>
                         </div>
                         <div class="image-content text-center">
                             <span></span>
-                            <a href="hall.html">
+                            <a href="#">
                                 <h6>医学论坛</h6>
                             </a>
                             <p>提供一个交流的平台</p>

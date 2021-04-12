@@ -1,0 +1,230 @@
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>layuiAdmin 网站用户</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" th:href="@{/layuiadmin/layui/css/layui.css}" media="all">
+  <link rel="stylesheet" th:href="@{/layuiadmin/style/admin.css}" media="all">
+
+  <style>
+    .layui-table-cell {
+      height: 100%;
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="layui-fluid">
+    <div class="layui-card">
+      <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">医生编号</label>
+            <div class="layui-input-block">
+              <input type="text" name="userId" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">科系</label>
+            <div class="layui-input-block">
+              <input type="text" name="department" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="LAY-user-front-search">
+              <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="layui-card-body">
+        <div style="padding-bottom: 10px;">
+<!--          <button class="layui-btn layuiadmin-btn-useradmin" data-type="batchdel">删除</button>-->
+<!--          <button class="layui-btn layuiadmin-btn-useradmin" data-type="add">添加</button>-->
+        </div>
+        
+        <table id="users" lay-filter="users"></table>
+        <script type="text/html" id="imgTpl"> 
+          <img style="display: inline-block; width: 50%; height: 100%;" src= {{ d.avatar }}>
+        </script> 
+        <script type="text/html" id="table-useradmin-webuser">
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="success"><i class="layui-icon layui-icon-edit"></i>通过</a>
+          <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="fail"><i class="layui-icon layui-icon-delete"></i>不通过</a>
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <script th:src="@{/layuiadmin/layui/layui.js}" th:inline="none"></script>
+  <script>
+  layui.config({
+    base: '../../../layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'useradmin', 'table'], function(){
+    var $ = layui.$
+    ,form = layui.form
+    ,table = layui.table;
+
+    table.render({
+      elem:"#users",
+      url:'/auth/list',
+      cellMinWidth: 80,
+      cols: [
+        [
+          {field: 'id', title: 'ID'},
+          {field: 'userId', title: '医生编号'},
+          {field: 'name', title: '医生姓名'},
+          {field: 'department', title: '认证科系'},
+          {field: 'img', title: '证件照', templet:'<div><img  src="{{ d.img }}"></div>'},
+          {field: 'result', title: '当前认证状态'},
+          {fixed: 'right', title: '操作', width:180, align: 'center', toolbar: '#table-useradmin-webuser'}
+        ]
+      ],
+    });
+
+    table.on('tool(users)', function (obj) {
+      var data = obj.data;
+      if(obj.event === 'success') {
+        data.result = "认证通过";
+        $.ajax({
+          url: "/auth/update",
+          type: 'post',
+          data: JSON.stringify(data),
+          dataType: 'json',
+          contentType: 'application/json',
+          success: function (result) {
+            if (result.code === 0) {
+              location.reload();
+              alert(result.msg);
+            }
+          },
+          error: function () {
+            layer.msg("出现错误");
+            return false;
+          }
+        })
+      }else if(obj.event === 'fail') {
+        data.result = "认证不通过";
+        layer.confirm('真的认证不通过么', function (index) {
+          $.ajax({
+            url: "/auth/update",
+            type: 'post',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+              if (result.code === 0) {
+                location.reload();
+                alert(result.msg);
+              }
+            },
+            error: function () {
+              layer.msg("出现错误");
+              return false;
+            }
+          })
+        });
+      }
+    });
+    
+    //监听搜索
+    form.on('submit(LAY-user-front-search)', function(data){
+      var field = data.field;
+      //执行重载
+      table.reload('users', {
+        url: '/auth/search',
+        method: 'post',
+        dataType: "json",
+        contentType: 'application/json',
+        data: field,
+        where: field,
+        page: {
+          curr : 1
+        }
+      }, 'data');
+    });
+  
+    //事件
+    var active = {
+      batchdel: function(){
+        var checkStatus = table.checkStatus('LAY-user-manage')
+        ,checkData = checkStatus.data; //得到选中的数据
+
+        if(checkData.length === 0){
+          return layer.msg('请选择数据');
+        }
+        
+        layer.prompt({
+          formType: 1
+          ,title: '敏感操作，请验证口令'
+        }, function(value, index){
+          layer.close(index);
+          
+          layer.confirm('确定删除吗？', function(index) {
+            
+            //执行 Ajax 后重载
+            /*
+            admin.req({
+              url: 'xxx'
+              //,……
+            });
+            */
+            table.reload('LAY-user-manage');
+            layer.msg('已删除');
+          });
+        });
+      }
+      ,add: function(){
+        layer.open({
+          type: 2
+          ,title: '添加症状'
+          ,content: '/admin/symptoms/form'
+          ,maxmin: true
+          ,area: ['500px', '450px']
+          ,btn: ['确定', '取消']
+          ,yes: function(index, layero){
+            var iframeWindow = window['layui-layer-iframe'+ index]
+            ,submitID = 'LAY-user-front-submit'
+            ,submit = layero.find('iframe').contents().find('#'+ submitID);
+
+            //监听提交
+            iframeWindow.layui.form.on('submit('+ submitID +')', function(data){
+              var field = data.field; //获取提交的字段
+
+              $.ajax({
+                url: '/admin/symptoms/add',
+                method: 'post',
+                dataType: "json",
+                contentType: 'application/json',
+                data: JSON.stringify(field),
+                success : function (result) {
+                  if(result.code === 0) {
+                    alert(result.msg);
+                  }
+                }
+              });
+              layer.close(index); //关闭弹层
+            });
+            window.location.href = '/admin/symptoms/toList';
+            submit.trigger('click');
+          }
+        }); 
+      }
+    };
+    
+    $('.layui-btn.layuiadmin-btn-useradmin').on('click', function(){
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+    });
+  });
+  </script>
+</body>
+</html>

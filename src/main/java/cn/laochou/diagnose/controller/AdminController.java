@@ -43,6 +43,11 @@ public class AdminController {
        return "admin/index";
     }
 
+    @RequestMapping("/console")
+    public String console() {
+        return "admin/home/console";
+    }
+
     @RequestMapping("/user/toList")
     public String toList() {
         return "admin/user/user/list";
@@ -186,6 +191,11 @@ public class AdminController {
     public ReturnBody<List<Comment>> searchCommentByCondition(@RequestBody CommentSearchCondition condition) {
         List<Comment> comments = commentService.searchCommentByCondition(condition);
         return ReturnBody.getSuccessReturnBody("查询成功", comments);
+    }
+
+    @RequestMapping("/auth/toList")
+    public String toAuthList() {
+        return "admin/user/auth/list";
     }
 
 }

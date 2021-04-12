@@ -96,10 +96,10 @@
                     <li>
                         <a href="/diagnose/about">关于我们</a>
                     </li>
-                    <li th:if="${session.user.role eq 2}">
+                    <li th:if="${session.user.role eq 2&&session.user.department !='用户系'}">
                         <a href="/request/hall">诊断大厅</a>
                     </li>
-                    <li th:if="${session.user.role eq 2}">
+                    <li th:if="${session.user.role eq 2&&session.user.department !='用户系'}">
                         <a href="/diagnose/publish">发布文章</a>
                     </li>
                     <li th:if="${session.user.role eq 1}">
@@ -108,8 +108,14 @@
                     <li>
                         <a href="/diagnose/blog">论坛</a>
                     </li>
+                    <li th:if="${session.user.role eq 2&&session.user.department =='用户系'}">
+                        <a href="/diagnose/auth">认证中心</a>
+                    </li>
                     <li>
                         <a href="/user/my">个人中心</a>
+                    </li>
+                    <li>
+                        <a href="/diagnose/logout">退出系统</a>
                     </li>
                 </ul>
             </div>
@@ -126,9 +132,9 @@
                 <h1>service</h1>
                 <ul class="title-menu clearfix">
                     <li>
-                        <a href="index.html">home &nbsp;/</a>
+                        <a href="/diagnose/index">主页 &nbsp;/</a>
                     </li>
-                    <li>service</li>
+                    <li>申请详情页</li>
                 </ul>
             </div>
         </div>
@@ -221,7 +227,7 @@
                     <div class="service-box col-md-12" th:if="${detail.isDiagnose eq 1}">
                         <div class="row">
                             <div class="col-md-6">
-                                <img class="img-responsive" src="images/services/service-one.jpg" alt="service-image">
+                                <img class="img-responsive" th:src="@{/images/services/service-one.jpg}" alt="service-image">
                             </div>
                             <form>
                                 <div class="col-md-6">
@@ -247,7 +253,7 @@
                     <div class="service-box col-md-12" th:if="${detail.isDiagnose eq 1}">
                         <div class="row">
                             <div class="col-md-6">
-                                <img class="img-responsive" src="images/services/service-one.jpg" alt="service-image">
+                                <img class="img-responsive" th:src="@{/images/services/service-one.jpg}" alt="service-image">
                             </div>
                             <form>
                                 <div class="col-md-6">
@@ -257,9 +263,9 @@
                                         </div>
                                         <div class="text">
                                             <input type="hidden" id="requestId" name="requestId" th:value="${detail.id}">
-                                            <span>诊断结果</span><input type="text" id="diagnoseResult" name="diagnoseResult" th:value="${diagnose.diagnoseResult}" readonly>
+                                            <span>诊断结果</span><input type="text" id="diagnoseResult" name="diagnoseResult" th:value="${diagnose.diagnoseResult}">
                                             <label>
-                                                <textarea style="width: 500px; height: 200px" id="advices" name="advices" th:value="${diagnose.advices}" readonly></textarea>
+                                                <textarea style="width: 500px; height: 200px" id="advices" name="advices" th:text="${diagnose.advices}"></textarea>
                                             </label>
                                         </div>
                                         <button href="#" class="btn btn-style-one" id="diagnoseButton">确认</button>
@@ -271,7 +277,7 @@
                     <div class="service-box col-md-12" th:if="${detail.isDiagnose eq 0}">
                         <div class="row">
                             <div class="col-md-6">
-                                <img class="img-responsive" src="images/services/service-one.jpg" alt="service-image">
+                                <img class="img-responsive" th:src="@{/images/services/service-one.jpg}" alt="service-image">
                             </div>
                             <form>
                                 <div class="col-md-6">
@@ -455,7 +461,7 @@
             method : "POST",
             contentType : "application/json",
             success: function (result) {
-                var message = result.message;
+                var message = result.msg;
                 if (message === "success") {
                     alert("诊断完成");
                     window.location.href = "/request/hall";

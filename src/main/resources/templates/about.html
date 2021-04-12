@@ -95,10 +95,10 @@
                     <li>
                         <a href="/diagnose/about">关于我们</a>
                     </li>
-                    <li th:if="${session.user.role eq 2}">
+                    <li th:if="${session.user.role eq 2&&session.user.department !='用户系'}">
                         <a href="/request/hall">诊断大厅</a>
                     </li>
-                    <li th:if="${session.user.role eq 2}">
+                    <li th:if="${session.user.role eq 2&&session.user.department !='用户系'}">
                         <a href="/diagnose/publish">发布文章</a>
                     </li>
                     <li th:if="${session.user.role eq 1}">
@@ -107,8 +107,14 @@
                     <li>
                         <a href="/diagnose/blog">论坛</a>
                     </li>
+                    <li th:if="${session.user.role eq 2&&session.user.department =='用户系'}">
+                        <a href="/diagnose/auth">认证中心</a>
+                    </li>
                     <li>
                         <a href="/user/my">个人中心</a>
+                    </li>
+                    <li>
+                        <a href="/diagnose/logout">退出系统</a>
                     </li>
                 </ul>
             </div>
@@ -122,12 +128,12 @@
 <section class="page-title text-center" style="background-image:url(/images/background/3.jpg);">
     <div class="container">
         <div class="title-text">
-            <h1>about us</h1>
+            <h1>关于我们</h1>
             <ul class="title-menu clearfix">
                 <li>
-                    <a href="index.html">home &nbsp;/</a>
+                    <a href="/diagnose/index">主页 &nbsp;/</a>
                 </li>
-                <li>about us</li>
+                <li>关于我们</li>
             </ul>
         </div>
     </div>
@@ -139,17 +145,17 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <img th:src="@{images/services/service-one.jpg}" class="responsive" alt="story">
+                <img th:src="@{/images/services/service-one.jpg}" class="responsive" alt="story">
             </div>
             <div class="col-md-6">
                 <div class="story-content">
-                    <h2>Our Story</h2>
-                    <h5 class="tagline">"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum, minima."</h6>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus totam ducimus est vero, officiis, placeat optio. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias aliquam nesciunt fugit optio illum aut. Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque assumenda, est quam perferendis expedita autem?</p>
-                    <h6>Mission</h6>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nam nihil dolorum beatae consequatur mollitia iure?</p>
-                    <h6>Vision</h6>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda consectetur adipisci, voluptatum dolores nostrum omnis.</p>
+                    <h2>我们的使命</h2>
+                    <h5 class="tagline">"从来不空谈"</h6>
+                    <p>致力于您们的健康</p>
+                    <h6>用户第一</h6>
+                    <p>致力于传播医学科普知识</p>
+                    <h6>云诊断平台</h6>
+                    <p>服务您们的平台</p>
                 </div>
             </div>
         </div>
@@ -178,11 +184,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="section-title text-center">
-                    <h3>Collected Shots
-                        <span>of Our Hospital</span>
+                    <h3>条件
+                        <span>及环境</span>
                     </h3>
-                    <p>Leverage agile frameworks to provide a robust synopsis for high level overv-
-                        <br>iews. Iterative approaches to corporate strategy...</p>
+                    <p>具有超强的医学资源
+                        <br>且具备超强的互联网资源</p>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
@@ -211,7 +217,7 @@
             </div>
             <div class="col-md-4 col-sm-6">
                 <div class="gallery-item">
-                    <img th:src="@{images/gallery/gallery-04.jpg}" class="img-responsive" alt="gallery-image">
+                    <img th:src="@{/images/gallery/gallery-04.jpg}" class="img-responsive" alt="gallery-image">
                     <a data-fancybox="images" href="images/gallery/gallery-04.jpg"></a>
                     <h3>Facility 04</h3>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, in.</p>
@@ -236,137 +242,6 @@
         </div>
     </div>
 </section>
-
-<!-- Contact Section -->
-<section class="appoinment-section section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="accordion-section">
-    <div class="section-title">
-        <h3>FAQ</h3>
-    </div>
-    <div class="accordion-holder">
-        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingOne">
-                    <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Why Should I choose Medical Health
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                        non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
-                        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
-                        helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-                        vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't
-                        heard of them accusamus labore sustainable VHS.
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingTwo">
-                    <h4 class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
-                            aria-controls="collapseTwo">
-                            What are the Centre’s visiting hours?
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                    <div class="panel-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                        non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
-                        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
-                        helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-                        vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't
-                        heard of them accusamus labore sustainable VHS.
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingThree">
-                    <h4 class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false"
-                            aria-controls="collapseThree">
-                            How many visitors are allowed?
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                    <div class="panel-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                        non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
-                        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
-                        helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-                        vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't
-                        heard of them accusamus labore sustainable VHS.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-            </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="contact-area">
-    <div class="section-title">
-        <h3>Request
-            <span>Appointment</span>
-        </h3>
-    </div>
-    <form name="contact_form" class="default-form contact-form" action="sendmail.php" method="post">
-        <div class="row">
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="form-group">
-                    <input type="text" name="Name" placeholder="Name" required="">
-                </div>
-                <div class="form-group">
-                    <input type="email" name="Email" placeholder="Email" required="">
-                </div>
-                <div class="form-group">
-                    <select name="subject">
-                        <option>Departments</option>
-                        <option>Diagnostic</option>
-                        <option>Psychological</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="form-group">
-                    <input type="text" name="Phone" placeholder="Phone" required="">
-                </div>
-                <div class="form-group">
-                    <input type="text" name="Date" placeholder="Date" required="" id="datepicker">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                </div>
-                <div class="form-group">
-                    <select name="subject">
-                        <option>Doctor</option>
-                        <option>Diagnostic</option>
-                        <option>Psychological</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="form-group">
-                    <textarea name="form_message" placeholder="Your Message" required=""></textarea>
-                </div>
-                <div class="form-group text-center">
-                    <button type="submit" class="btn-style-one">submit now</button>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Contact Section -->
 
 <!--footer-main-->
 <footer class="footer-main">

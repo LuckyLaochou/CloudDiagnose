@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -90,4 +91,16 @@ public class DiagnoseController {
     public String toBlogSingle() {
         return "singleblog";
     }
+
+    @RequestMapping("/auth")
+    public String toAuth() {
+        return "auth";
+    }
+
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession().removeAttribute("user");
+        return "login";
+    }
+
 }

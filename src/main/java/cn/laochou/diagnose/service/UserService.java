@@ -21,4 +21,6 @@ public interface UserService {
     void delUserById(int id);
 
     List<User> selectUserByCondition(UserSearchCondition condition);
+
+    void updateUserByDepartment(User user);
 }

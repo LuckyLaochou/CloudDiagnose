@@ -18,7 +18,7 @@
     </select>
 
     <update id="updateUser" parameterType="cn.laochou.diagnose.pojo.User">
-        update user set name = #{name}, id_card = #{idCard}, mail = #{mail}, phone = #{phone}, role = #{role} where id = #{id};
+        update user set name = #{name}, id_card = #{idCard}, mail = #{mail}, phone = #{phone}, role = #{role}, sex = #{sex} where id = #{id};
     </update>
 
     <delete id="delUserById">
@@ -34,11 +34,15 @@
             and name like CONCAT('%', #{name}, '%')
         </if>
         <if test="email != null and email != ''">
-            and email like CONCAT('%', #{email}, '%')
+            and mail like CONCAT('%', #{email}, '%')
         </if>
         <if test="sex != null and sex != ''">
             and sex = #{sex}
         </if>
     </select>
+
+    <update id="updateUserByDepartment" parameterType="cn.laochou.diagnose.pojo.User">
+        update user set department = #{department} where id = #{id}
+    </update>
 
 </mapper>

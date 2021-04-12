@@ -6,7 +6,7 @@
     </select>
 
     <update id="updateSymptoms" parameterType="cn.laochou.diagnose.pojo.Symptoms">
-        update symptoms set name = #{name} and symptoms = #{symptoms} where id = #{id}
+        update symptoms set name = #{name}, symptoms = #{symptoms} where id = #{id}
     </update>
 
     <delete id="delSymptomsById">

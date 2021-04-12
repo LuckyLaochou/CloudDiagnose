@@ -37,9 +37,6 @@
 						<div class="login-remember d-grid">
 							<button class="btn theme-button" id="loginButton" type="button">登陆</button>
 						</div>
-						<div class="new-signup">
-							<a href="" class="signuplink">忘记密码？</a>
-						</div>
 					</form>
 					<p class="signup">没有账号? <a href="/diagnose/register" class="signuplink">注册</a></p>
 				</div>
@@ -67,7 +64,11 @@
 						alert(message);
 						window.location.href = "/diagnose/index";
 						return false;
-					} else {
+					} else if(message === "管理员登陆成功") {
+						alert(message);
+						window.location.href = "/admin/index";
+						return false;
+					}else {
 						alert(message);
 						window.location.href = "/diagnose/login";
 						return false;

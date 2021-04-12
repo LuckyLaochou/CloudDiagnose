@@ -96,10 +96,10 @@
                     <li>
                         <a href="/diagnose/about">关于我们</a>
                     </li>
-                    <li th:if="${session.user.role eq 2}">
+                    <li th:if="${session.user.role eq 2&&session.user.department !='用户系'}">
                         <a href="/request/hall">诊断大厅</a>
                     </li>
-                    <li th:if="${session.user.role eq 2}">
+                    <li th:if="${session.user.role eq 2&&session.user.department !='用户系'}">
                         <a href="/diagnose/publish">发布文章</a>
                     </li>
                     <li th:if="${session.user.role eq 1}">
@@ -108,8 +108,14 @@
                     <li>
                         <a href="/diagnose/blog">论坛</a>
                     </li>
+                    <li th:if="${session.user.role eq 2&&session.user.department =='用户系'}">
+                        <a href="/diagnose/auth">认证中心</a>
+                    </li>
                     <li>
                         <a href="/user/my">个人中心</a>
+                    </li>
+                    <li>
+                        <a href="/diagnose/logout">退出系统</a>
                     </li>
                 </ul>
             </div>
@@ -126,9 +132,9 @@
             <h1>appointment</h1>
             <ul class="title-menu clearfix">
                 <li>
-                    <a href="index.html">home &nbsp;/</a>
+                    <a href="/diagnose/index">主页 &nbsp;/</a>
                 </li>
-                <li>appointment</li>
+                <li>用户病例申请</li>
             </ul>
         </div>
     </div>

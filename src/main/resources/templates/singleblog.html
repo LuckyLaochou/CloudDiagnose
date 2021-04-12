@@ -110,8 +110,14 @@
                     <li>
                         <a href="/diagnose/blog">论坛</a>
                     </li>
+                    <li th:if="${session.user.role eq 2&&session.user.department =='用户系'}">
+                        <a href="/diagnose/auth">认证中心</a>
+                    </li>
                     <li>
                         <a href="/user/my">个人中心</a>
+                    </li>
+                    <li>
+                        <a href="/diagnose/logout">退出系统</a>
                     </li>
                 </ul>
             </div>
@@ -128,9 +134,9 @@
             <h1>Blog Details</h1>
             <ul class="title-menu clearfix">
                 <li>
-                    <a href="/diagnose/index">home &nbsp;/</a>
+                    <a href="/diagnose/index">主页 &nbsp;/</a>
                 </li>
-                <li>Blog Details</li>
+                <li>文章详情页</li>
             </ul>
         </div>
     </div>

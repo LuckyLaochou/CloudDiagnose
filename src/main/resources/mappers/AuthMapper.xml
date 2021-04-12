@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.laochou.diagnose.mapper.AuthMapper">
+    <select id="selectAllAuth" resultType="cn.laochou.diagnose.vo.AuthVO">
+        select auth.id, user.id as user_id, user.name, auth.department, auth.img, auth.result from user, auth where user.id = auth.user_id;
+    </select>
+
+    <insert id="addAuth" parameterType="cn.laochou.diagnose.pojo.Auth">
+        insert into auth(user_id, department, img) values(#{userId}, #{department}, #{img})
+    </insert>
+
+    <update id="updateAuthByResult" parameterType="cn.laochou.diagnose.pojo.Auth">
+        update auth set result = #{result} where id = #{id}
+    </update>
+
+    <select id="selectAllAuthByCondition" parameterType="cn.laochou.diagnose.search.AuthSearchCondition" resultType="cn.laochou.diagnose.vo.AuthVO">
+        select auth.id, user.id as user_id, user.name, auth.department, auth.img, auth.result from user, auth where
+        user.id = auth.user_id
+        <if test="id != null and id != ''">
+            and auth.user_id = #{id}
+        </if>
+        <if test="department != null and department != ''">
+            and auth.department like CONCAT('%', #{department}, '%')
+        </if>
+    </select>
+</mapper>

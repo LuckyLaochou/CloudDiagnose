@@ -50,7 +50,7 @@
             <div class="logo">
                   <figure>
                         <a href="index.html">
-                              <img src="images/logo.png" alt="" width="130">
+                              <img th:src="@{/images/logo.png}" alt="" width="130">
                         </a>
                   </figure>
             </div>
@@ -106,10 +106,10 @@
                     <li>
                         <a href="/diagnose/about">关于我们</a>
                     </li>
-                    <li th:if="${session.user.role eq 2}">
+                    <li th:if="${session.user.role eq 2&&session.user.department !='用户系'}">
                         <a href="/request/hall">诊断大厅</a>
                     </li>
-                    <li th:if="${session.user.role eq 2}">
+                    <li th:if="${session.user.role eq 2&&session.user.department !='用户系'}">
                         <a href="/diagnose/publish">发布文章</a>
                     </li>
                     <li th:if="${session.user.role eq 1}">
@@ -118,8 +118,14 @@
                     <li>
                         <a href="/diagnose/blog">论坛</a>
                     </li>
+                    <li th:if="${session.user.role eq 2&&session.user.department =='用户系'}">
+                        <a href="/diagnose/auth">认证中心</a>
+                    </li>
                     <li>
                         <a href="/user/my">个人中心</a>
+                    </li>
+                    <li>
+                        <a href="/diagnose/logout">退出系统</a>
                     </li>
                 </ul>
             </div>
@@ -136,7 +142,7 @@
             <h1>Blog</h1>
             <ul class="title-menu clearfix">
                 <li>
-                    <a href="index.html">home &nbsp;/</a>
+                    <a href="/diagnose/index">主页 &nbsp;/</a>
                 </li>
                 <li>个人中心</li>
             </ul>
@@ -193,19 +199,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                <div th:each="item:${data}">
-                    <tr>
-                        <td th:text="${item.id}"></td>
-                        <td th:text="${item.requestId}"></td>
-                        <td th:text="${item.userId}"></td>
-                        <td th:text="${item.name}"></td>
-                        <td th:text="${item.department}"></td>
-                        <td th:text="${item.diagnoseResult}"></td>
-                        <td th:text="${item.advices}"></td>
-                        <td th:text="${item.createTime}"></td>
-                        <td><a th:href="@{/request/get/{id}(id=${item.id})}">查看详情</a></td>
+                    <tr th:each="item:${data}">
+                            <td th:text="${item.id}"></td>
+                            <td th:text="${item.requestId}"></td>
+                            <td th:text="${item.userId}"></td>
+                            <td th:text="${item.name}"></td>
+                            <td th:text="${item.department}"></td>
+                            <td th:text="${item.diagnoseResult}"></td>
+                            <td th:text="${item.advices}"></td>
+                            <td th:text="${item.createTime}"></td>
+                            <td><a th:href="@{/request/get/{id}(id=${item.requestId})}">查看详情</a></td>
                     </tr>
-                </div>
                 </tbody>
             </div>
 
@@ -222,6 +226,7 @@
                 </thead>
                 <tbody>
                     <div th:each="item:${data}">
+                        <tr>
                         <td th:text="${item.id}"></td>
                         <td th:text="${item.name}"></td>
                         <td th:text="${item.department}"></td>
@@ -234,6 +239,7 @@
                         </div>
                         <td th:text="${item.createTime}"></td>
                         <td><a th:href="@{/request/get/{id}(id=${item.id})}">查看详情</a></td>
+                        </tr>
                     </div>
                 </tbody>
             </div>

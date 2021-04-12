@@ -94,6 +94,10 @@ public class UserController {
             return ReturnBody.getSuccessReturnBody("该用户并不存在或者密码错误");
         }
         request.getSession().setAttribute("user", u);
+        // 管理员
+        if(u.getRole() == 3) {
+            return ReturnBody.getSuccessReturnBody("管理员登陆成功");
+        }
         return ReturnBody.getSuccessReturnBody("登陆成功");
     }
 
@@ -183,6 +187,10 @@ public class UserController {
         boolean result = diagnoseService.insertDiagnose(diagnose);
         // 在这里，还需要修改Request中的状态哦
         boolean update = requestService.updateRequestByDiagnose(diagnose.getRequestId());
-        return result && update ? ReturnBody.getSuccessReturnBody("success") : ReturnBody.getSuccessReturnBody("error");
+        if(result && update) {
+            return ReturnBody.getSuccessReturnBody("success");
+        }
+        return ReturnBody.getSuccessReturnBody("error");
     }
+
 }
